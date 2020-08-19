@@ -59,8 +59,21 @@ class ActivitiesController extends Controller
      */
     public function index(Request $request)
     {
-        $url = config('data.spreadsheet_url');
-        $items = $this->fetchGoogleSpreadsheet($url);
+        $url = config('data.spreadsheet_url') . '&cache=' . rand(0, 10000);
+        $sources = $this->fetchGoogleSpreadsheet($url);
+        $activities = [];
 
+        if(count($sources) == 0) {
+            return [];
+        }
+
+        foreach($sources as $spreadsheet) {
+            $id = $spreadsheet['id'];
+            $url = $spreadsheet['url'] . '&cache=' . rand(0, 10000);
+
+            $activities[$id] = $this->fetchGoogleSpreadsheet($url);
+        }
+
+        return $activities;
     }
 }

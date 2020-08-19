@@ -10,8 +10,8 @@ on:
       - dev
 env:
   BUILD_HOST: ci.uffs.cc
-  BUILD_WEB_DIRECTORY: /home/ccuffsci/ci.uffs.cc/app-covid-api
-  BUILD_WEB_URL: https://ci.uffs.cc/app-covid-api
+  BUILD_WEB_DIRECTORY: /home/ccuffsci/ci.uffs.cc/app-health-seminars-api
+  BUILD_WEB_URL: https://ci.uffs.cc/app-health-seminars-api
 jobs:
   build-deploy:
     name: Build and test Laravel app

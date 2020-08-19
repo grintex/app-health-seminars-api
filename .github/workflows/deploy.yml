@@ -4,8 +4,8 @@ on:
     branches:
       - master
 env:
-  PROD_HOST: app-covid.api.uffs.cc
-  PROD_WEB_DIRECTORY: ~/app-covid.api.uffs.cc
+  PROD_HOST: app-health-seminars.api.uffs.cc
+  PROD_WEB_DIRECTORY: ~/app-health-seminars.api.uffs.cc
 jobs:
   deploy:
     name: Deploy to production

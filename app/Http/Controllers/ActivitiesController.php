@@ -71,7 +71,20 @@ class ActivitiesController extends Controller
             $id = $spreadsheet['id'];
             $url = $spreadsheet['url'] . '&cache=' . rand(0, 10000);
 
-            $activities[$id] = $this->fetchGoogleSpreadsheet($url);
+            try {
+                $activities[$id] = $this->fetchGoogleSpreadsheet($url);
+
+            } catch (\Exception $error) {
+                // Something bad happened. Let's put up some fake data with
+                // info about the error.
+                $activities[$id] = array([
+                    "step" => "0",
+                    "type" => "info",
+                    "value" => $id,
+                    "desc" => "A planilha com a identificação <em>$id</em> está com problemas no seu conteúdo. <br /><br />Alguém colocou conteúdo em uma linha, porém esqueceu de colocar a coluna para identificar os dados. Talvez isso tenha sido porque alguém escreveu algum comentário em uma célula da planilha fora das colunas esperadas (por exemplo, fora da coluna <code>step</code>, <code>value</code>, etc). Verifique a planilha e atualize os dados do aplicativo.",
+                    "icon" => "close.svg"
+                ]);
+            }
         }
 
         return $activities;

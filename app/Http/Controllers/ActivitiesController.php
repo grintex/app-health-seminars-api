@@ -45,6 +45,10 @@ class ActivitiesController extends Controller
                 continue;
             }
 
+            if(count($header) != count($line)) {
+                throw new \Exception('Linha problemática: ' . ($index + 1));
+            }
+
             $items[] = array_combine($header, $line);
         }
 
@@ -81,7 +85,7 @@ class ActivitiesController extends Controller
                     "step" => "0",
                     "type" => "info",
                     "value" => $id,
-                    "desc" => "A planilha com a identificação <em>$id</em> está com problemas no seu conteúdo. <br /><br />Alguém colocou conteúdo em uma linha, porém esqueceu de colocar a coluna para identificar os dados. Talvez isso tenha sido porque alguém escreveu algum comentário em uma célula da planilha fora das colunas esperadas (por exemplo, fora da coluna <code>step</code>, <code>value</code>, etc). Verifique a planilha e atualize os dados do aplicativo.",
+                    "desc" => "A planilha com a identificação <em>$id</em> está com problemas no seu conteúdo. <br /><br />Alguém colocou conteúdo em uma linha, porém esqueceu de colocar a coluna para identificar os dados. Talvez isso tenha sido porque alguém escreveu algum comentário em uma célula da planilha fora das colunas esperadas (por exemplo, fora da coluna <code>step</code>, <code>value</code>, etc). Outro problema pode ser que alguma célula tenha quebra de linha (um enter). Infelizmente isso não é possível nessa versão. Verifique a planilha e atualize os dados do aplicativo. <br/><br />" . $error->getMessage(),
                     "icon" => "close.svg"
                 ]);
             }
